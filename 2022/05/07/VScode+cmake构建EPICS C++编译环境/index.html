@@ -1,0 +1,349 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>VScode+cmake构建EPICS C++编译环境 | Cythnia</title><meta name="keywords" content="EPICS,Cmake,C++"><meta name="author" content="VerTiCaL"><meta name="copyright" content="VerTiCaL"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="# VScode+cmake 构建 EPICS C++ 编译环境   # 编译环境和所需组件   系统信息：Win10 64 位    Packages Source FUNC Docs     EPICS base-7.0.5 Official link EPICS base pvAccess C++   Visual Studio Code for windows Official link">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VScode+cmake构建EPICS C++编译环境">
+<meta property="og:url" content="http://192.168.1.105/2022/05/07/VScode+cmake%E6%9E%84%E5%BB%BAEPICS%20C++%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83/index.html">
+<meta property="og:site_name" content="Cythnia">
+<meta property="og:description" content="# VScode+cmake 构建 EPICS C++ 编译环境   # 编译环境和所需组件   系统信息：Win10 64 位    Packages Source FUNC Docs     EPICS base-7.0.5 Official link EPICS base pvAccess C++   Visual Studio Code for windows Official link">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://192.168.1.105/cover/Galaxy04.jpeg">
+<meta property="article:published_time" content="2022-05-06T17:30:14.063Z">
+<meta property="article:modified_time" content="2022-05-09T03:41:04.875Z">
+<meta property="article:author" content="VerTiCaL">
+<meta property="article:tag" content="EPICS">
+<meta property="article:tag" content="Cmake">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://192.168.1.105/cover/Galaxy04.jpeg"><link rel="shortcut icon" href="/img/avatar.jpg"><link rel="canonical" href="http://192.168.1.105/2022/05/07/VScode+cmake%E6%9E%84%E5%BB%BAEPICS%20C++%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"DY0A960O7R","apiKey":"e2f82894b0944f9575ebca09d3135ea0","indexName":"blog","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":100},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'VScode+cmake构建EPICS C++编译环境',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-05-09 11:41:04'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"  media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://unpkg.zhimg.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://unpkg.zhimg.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/cover/Galaxy06.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Cythnia</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">VScode+cmake构建EPICS C++编译环境</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-06T17:30:14.063Z" title="发表于 2022-05-07 01:30:14">2022-05-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-05-09T03:41:04.875Z" title="更新于 2022-05-09 11:41:04">2022-05-09</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Article/">Article</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="VScode+cmake构建EPICS C++编译环境"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="font-color00caca-vscodecmake构建epics-c编译环境-font"><a class="markdownIt-Anchor" href="#font-color00caca-vscodecmake构建epics-c编译环境-font">#</a> <font color=#00CACA >VScode+cmake 构建 EPICS C++ 编译环境  </font></h1>
+<h2 id="font-color00caca-编译环境和所需组件-font"><a class="markdownIt-Anchor" href="#font-color00caca-编译环境和所需组件-font">#</a> <font color=#00CACA >编译环境和所需组件  </font></h2>
+<p>系统信息：Win10 64 位</p>
+<table>
+<thead>
+<tr>
+<th>Packages</th>
+<th>Source</th>
+<th style="text-align:center">FUNC</th>
+<th style="text-align:center">Docs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>EPICS base-7.0.5</strong></td>
+<td><a target="_blank" rel="noopener" href="https://epics.anl.gov/base/R7-0/5.php">Official link</a></td>
+<td style="text-align:center">EPICS base</td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://epics-controls.org/resources-and-support/documents/pvaccess/">pvAccess C++</a></td>
+</tr>
+<tr>
+<td><strong>Visual Studio Code for windows</strong></td>
+<td><a target="_blank" rel="noopener" href="https://code.visualstudio.com/">Official link</a></td>
+<td style="text-align:center">IDE</td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/cpp/config-mingw">For C++</a></td>
+</tr>
+<tr>
+<td><strong>CMake 3.19.3</strong></td>
+<td><a target="_blank" rel="noopener" href="https://cmake.org/">Official link</a></td>
+<td style="text-align:center">C++ tools</td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://cmake.org/cmake/help/latest/guide/tutorial/index.html">For C++</a></td>
+</tr>
+<tr>
+<td><strong>mingw64</strong></td>
+<td><a target="_blank" rel="noopener" href="https://www.mingw-w64.org/">Official link</a></td>
+<td style="text-align:center">Complier</td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://www.cygwin.com/install.html">Cygwin</a></td>
+</tr>
+</tbody>
+</table>
+<p>说明:</p>
+<ul>
+<li>VS Code 安装所需的 C++ 和 CMake Tools 的插件</li>
+<li>EPICS base 在 Win10 上的编译参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/VerTicalVerTical/article/details/108712336?spm=1001.2014.3001.5502"> EPICS 在 win10 和 linux 上的安装与测试</a></li>
+<li>gcc 和 g++ 版本：8.1.0</li>
+</ul>
+<h2 id="font-color00caca-epics-base的头文件和库文件位置-font"><a class="markdownIt-Anchor" href="#font-color00caca-epics-base的头文件和库文件位置-font">#</a> <font color=#00CACA > EPICS base 的头文件和库文件位置 </font></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">PATH</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">EPICS_BASE_DIR</td>
+<td style="text-align:left">D:/EPICS/base-7.0.5/</td>
+</tr>
+<tr>
+<td style="text-align:left">EPICS_LIB_DIR</td>
+<td style="text-align:left">D:/EPICS/base-7.0.5/lib/windows-x64-mingw</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>顺利编译 EPICS base 后的 base 文件夹下， <strong>include</strong> 和  <strong>lib</strong>  两个子文件夹里就是所需的头文件和动态链接库文件.</li>
+<li>include 文件夹结构目录 <img src="include_folder.jpg" alt=""><br>
+<font color=#f85dcd > 1. compiler/gcc 里面 包括了编译时编译器的依赖头文件： <em>compilerSpecific.h</em><br>
+2. os/WIN32 文件夹里面包含了操作系统的依赖头文件<br>
+ 3. pv 文件夹里为 Process Variable 相关的操作依赖头文件<br>
+ 4. pva 文件下为 pvAccess 的依赖头文件 </font></li>
+</ul>
+<hr>
+<ul>
+<li>lib 文件夹结构目录<br>
+<img src="lib_folder.jpg" alt=""></li>
+</ul>
+<hr>
+<h2 id="cmakeliststxt编写"><a class="markdownIt-Anchor" href="#cmakeliststxt编写">#</a> CMakeLists.txt 编写</h2>
+<p>CMakeLists.txt 里面基础的部分可以通过 VS code 的 CMaketools 插件自动生成。</p>
+<p>关于 EPICS base 的部分如下：</p>
+<p><font color=#00CACA >需要手动更改 EPICS base 和 Lib 文件的位置 </font></p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># EPICS base directory</span></span><br><span class="line"><span class="keyword">set</span>(EPICS_BASE_DIR D:/EPICS/base-<span class="number">7.0</span>.<span class="number">5</span>/)</span><br><span class="line"><span class="comment"># EPICS lib directory</span></span><br><span class="line"><span class="keyword">set</span>(EPICS_LIB_DIR D:/EPICS/base-<span class="number">7.0</span>.<span class="number">5</span>/lib/windows-x64-mingw)</span><br><span class="line"></span><br><span class="line"><span class="comment">#include header file</span></span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">$&#123;EPICS_BASE_DIR&#125;</span>/<span class="keyword">include</span>)</span><br><span class="line"><span class="comment"># for compiler</span></span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">$&#123;EPICS_BASE_DIR&#125;</span>/<span class="keyword">include</span>/compiler/gcc)</span><br><span class="line"><span class="comment"># for operating system  </span></span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">$&#123;EPICS_BASE_DIR&#125;</span>/<span class="keyword">include</span>/os/WIN32)</span><br><span class="line"></span><br><span class="line"><span class="comment"># link Lib directory</span></span><br><span class="line"><span class="keyword">link_directories</span>(<span class="variable">$&#123;EPICS_LIB_DIR&#125;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_executable</span>(<span class="variable">$&#123;PROJECT_NAME&#125;</span> main.cpp)</span><br><span class="line"></span><br><span class="line"><span class="comment"># link EPICS dynamic libraries</span></span><br><span class="line"><span class="keyword">target_link_libraries</span>(<span class="variable">$&#123;PROJECT_NAME&#125;</span> libpvAccess libca libCom </span><br><span class="line">libpvaClient libnt libpvData libpvDatabase libqsrv )</span><br></pre></td></tr></table></figure>
+<h2 id="epics-pvaccesscpp-c-api测试"><a class="markdownIt-Anchor" href="#epics-pvaccesscpp-c-api测试">#</a> EPICS pvAccessCPP C++ API 测试</h2>
+<p>EPICS base 的 C++ API 接口有 pvDataCPP、pvAccessCPP, 分别用于数据读取和 channel 访问。</p>
+<p><font color=#f85dcd > <em>API 文档</em> </font></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://epics-base.github.io/pvDataCPP/">pvDataCPP</a></li>
+<li><a target="_blank" rel="noopener" href="https://epics-base.github.io/pvAccessCPP/">pvAccessCPP</a></li>
+</ul>
+<p>演示代码来自 pvAccessCPP api 文档里的 Simple Client Get Example</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;pva/client.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(argc&lt;=<span class="number">1</span>) &#123;</span><br><span class="line">            std::cerr&lt;&lt;<span class="string">&quot;Usage: &quot;</span>&lt;&lt;argv[<span class="number">0</span>]&lt;&lt;<span class="string">&quot; &lt;pvname&gt;\n&quot;</span>;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function">pvac::ClientProvider <span class="title">provider</span><span class="params">(<span class="string">&quot;pva&quot;</span>)</span></span>;</span><br><span class="line">        <span class="function">pvac::ClientChannel <span class="title">channel</span><span class="params">(provider.connect(argv[<span class="number">1</span>]))</span></span>;</span><br><span class="line">        std::cout&lt;&lt;channel.<span class="built_in">name</span>()&lt;&lt;<span class="string">&quot; : &quot;</span>&lt;&lt;channel.<span class="built_in">get</span>()&lt;&lt;<span class="string">&quot;*****end*****&quot;</span>&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    &#125;<span class="built_in">catch</span>(std::exception&amp; e)&#123;</span><br><span class="line">        std::cerr&lt;&lt;<span class="string">&quot;Error: &quot;</span>&lt;&lt;e.<span class="built_in">what</span>()&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>在 VS code 里面 build，编译通过后，启动 EPICS，运行程序，访问一个 PV 变量 <strong>$(PVhostName):ai1</strong>，结果如下：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">PS</span> I:\Coding\EPICS_coding\PVget\build&gt; .<span class="string">&quot;I:/Coding/EPICS_coding/PVget/build/PVget.exe&quot;</span></span><br><span class="line">Usage: I:\Coding\EPICS_coding\PVget\build\PVget.exe &lt;pvname&gt;</span><br><span class="line"><span class="built_in">PS</span> I:\Coding\EPICS_coding\PVget\build&gt; .\PVget.exe <span class="variable">$</span>(PVhostName):ai1</span><br><span class="line"><span class="variable">$</span>(PVhostName):ai1 : epics:nt/NTScalar:<span class="number">1.0</span> </span><br><span class="line">    double value <span class="number">4</span></span><br><span class="line">    alarm_t alarm</span><br><span class="line">        int severity <span class="number">1</span></span><br><span class="line">        int status <span class="number">1</span></span><br><span class="line">        string message LOW</span><br><span class="line">    time_t timeStamp</span><br><span class="line">        long secondsPastEpoch <span class="number">1651843923</span></span><br><span class="line">        int nanoseconds <span class="number">283817868</span></span><br><span class="line">        int userTag <span class="number">0</span></span><br><span class="line">    structure display</span><br><span class="line">        double limitLow <span class="number">0</span></span><br><span class="line">        double limitHigh <span class="number">10</span></span><br><span class="line">        string description <span class="string">&quot;Analog input No. 1&quot;</span></span><br><span class="line">        string units Counts</span><br><span class="line">        int precision <span class="number">0</span></span><br><span class="line">        enum_t form</span><br><span class="line">            int index <span class="number">0</span></span><br><span class="line">            string[] choices [<span class="type">Default</span>, <span class="built_in">String</span>, <span class="type">Binary</span>, <span class="built_in">Decimal</span>, <span class="type">Hex</span>, <span class="type">Exponential</span>, <span class="type">Engineering</span>]</span><br><span class="line">    control_t control</span><br><span class="line">        double limitLow <span class="number">0</span></span><br><span class="line">        double limitHigh <span class="number">10</span></span><br><span class="line">        double minStep <span class="number">0</span></span><br><span class="line">    valueAlarm_t valueAlarm</span><br><span class="line">        boolean active false</span><br><span class="line">        double lowWarningLimit <span class="number">4</span></span><br><span class="line">        double highAlarmLimit <span class="number">8</span></span><br><span class="line">        int lowAlarmSeverity <span class="number">0</span></span><br><span class="line">        int lowWarningSeverity <span class="number">0</span></span><br><span class="line">        int highWarningSeverity <span class="number">0</span></span><br><span class="line">        int highAlarmSeverity <span class="number">0</span></span><br><span class="line">        byte hysteresis <span class="number">0</span></span><br><span class="line">*****<span class="keyword">end</span>*****</span><br></pre></td></tr></table></figure>
+<h3 id="后记"><a class="markdownIt-Anchor" href="#后记">#</a> 后记</h3>
+<p><strong>纪念 EPICS 的主要开发者之一老爷子–Marty Kraimer</strong><br>
+ 偶然在 EPICS 官网的 tech talk 看到了个帖子，才发现他是 EPICS 的早期开发者之一，30 多年奋战在一线，上面的 pvDataCPP 和 pvAccessCPP 的也是他开发的，他的<a target="_blank" rel="noopener" href="https://github.com/mrkraimer"> Github 主页</a>上显示直到 2021 年 10 月 8 岁的 Marty 仍然还在提交 commit，令人钦佩。<strong>RIP RIP</strong></p>
+<ul>
+<li>“A Tribute to our Colleague Marty Kraimer”</li>
+</ul>
+<blockquote>
+<p>Forgive the non-technical email. Marty passed away recently. As Marty has provided immeasurable support to this community, this seems like the most appropriate way to let everyone know. He was dedicated to building a collaboration on a code base - before there were any text books or scholarly papers or even a name for it - that was open-source. He was a prolific coder, open to help and take help from others. He was meticulous in the production of robust code that many would depend on to operate their facilities. <strong>Making mistakes and fixing them is great for making heroes. Making code that everyone depends on and no one ever notices is the work of an outstanding engineer.</strong> Marty was an outstanding engineer and he was tireless in this pursuit. He laid waste to many a keyboard with his pounding style. His contributions are fundamental to all of our successes. Have a beer to our colleague, benefactor and friend —</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/mrkraimer">Marty Kraimer Github 主页</a><br>
+<img src="MartyKraimerGitHub2020.jpg" alt=""></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://192.168.1.105">VerTiCaL</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://192.168.1.105/2022/05/07/VScode+cmake%E6%9E%84%E5%BB%BAEPICS%20C++%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83/">http://192.168.1.105/2022/05/07/VScode+cmake%E6%9E%84%E5%BB%BAEPICS%20C++%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://192.168.1.105" target="_blank">Cythnia</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/EPICS/">EPICS</a><a class="post-meta__tags" href="/tags/Cmake/">Cmake</a><a class="post-meta__tags" href="/tags/C/">C++</a></div><div class="post_share"><div class="social-share" data-image="/cover/Galaxy04.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/05/07/EPICS%20%E5%9C%A8win10%20%E5%92%8C%20linux%E4%B8%8A%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E6%B5%8B%E8%AF%95/"><img class="prev-cover" src="/cover/Galaxy03.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">EPICS 在win10 和 linux上的安装与测试</div></div></a></div><div class="next-post pull-right"><a href="/2022/02/17/hello-world/"><img class="next-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Hello World</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/05/07/EPICS%20%E5%9C%A8win10%20%E5%92%8C%20linux%E4%B8%8A%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E6%B5%8B%E8%AF%95/" title="EPICS 在win10 和 linux上的安装与测试"><img class="cover" src="/cover/Galaxy03.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-07</div><div class="title">EPICS 在win10 和 linux上的安装与测试</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">VerTiCaL</div><div class="author-info__description">Life is about choice, Live for a purpose</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zlmturnout"><i class="fab fa-github"></i><span>Github page</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zlmturnout" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://www.nasa.gov/" target="_blank" title="NASA"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://music.163.com/" target="_blank" title="cloud-music"><i class="fas fa-cloud-music"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Personal Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#font-color00caca-vscodecmake%E6%9E%84%E5%BB%BAepics-c%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83-font"><span class="toc-number">1.</span> <span class="toc-text"> VScode+cmake 构建 EPICS C++ 编译环境  </span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#font-color00caca-%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83%E5%92%8C%E6%89%80%E9%9C%80%E7%BB%84%E4%BB%B6-font"><span class="toc-number">1.1.</span> <span class="toc-text"> 编译环境和所需组件  </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#font-color00caca-epics-base%E7%9A%84%E5%A4%B4%E6%96%87%E4%BB%B6%E5%92%8C%E5%BA%93%E6%96%87%E4%BB%B6%E4%BD%8D%E7%BD%AE-font"><span class="toc-number">1.2.</span> <span class="toc-text">  EPICS base 的头文件和库文件位置 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cmakeliststxt%E7%BC%96%E5%86%99"><span class="toc-number">1.3.</span> <span class="toc-text"> CMakeLists.txt 编写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#epics-pvaccesscpp-c-api%E6%B5%8B%E8%AF%95"><span class="toc-number">1.4.</span> <span class="toc-text"> EPICS pvAccessCPP C++ API 测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8E%E8%AE%B0"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 后记</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/05/07/EPICS%20%E5%9C%A8win10%20%E5%92%8C%20linux%E4%B8%8A%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E6%B5%8B%E8%AF%95/" title="EPICS 在win10 和 linux上的安装与测试"><img src="/cover/Galaxy03.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="EPICS 在win10 和 linux上的安装与测试"/></a><div class="content"><a class="title" href="/2022/05/07/EPICS%20%E5%9C%A8win10%20%E5%92%8C%20linux%E4%B8%8A%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E6%B5%8B%E8%AF%95/" title="EPICS 在win10 和 linux上的安装与测试">EPICS 在win10 和 linux上的安装与测试</a><time datetime="2022-05-06T18:16:29.373Z" title="发表于 2022-05-07 02:16:29">2022-05-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/07/VScode+cmake%E6%9E%84%E5%BB%BAEPICS%20C++%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83/" title="VScode+cmake构建EPICS C++编译环境"><img src="/cover/Galaxy04.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VScode+cmake构建EPICS C++编译环境"/></a><div class="content"><a class="title" href="/2022/05/07/VScode+cmake%E6%9E%84%E5%BB%BAEPICS%20C++%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83/" title="VScode+cmake构建EPICS C++编译环境">VScode+cmake构建EPICS C++编译环境</a><time datetime="2022-05-06T17:30:14.063Z" title="发表于 2022-05-07 01:30:14">2022-05-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/17/hello-world/" title="Hello World"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2022/02/17/hello-world/" title="Hello World">Hello World</a><time datetime="2022-02-17T13:04:40.559Z" title="发表于 2022-02-17 21:04:40">2022-02-17</time></div></div></div></div></div></div></main><footer id="footer" style="background: linear-gradient(50deg, #ADFEDC 10%, #FF95CA 80%)"><div id="footer-wrap"><div class="copyright">&copy;2022 By VerTiCaL</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">To show your true colors, you have to come out of the shell</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script><div class="js-pjax"></div><div class="aplayer no-destroy" data-id="2661667887" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="false" muted></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<div id="workboard"></div><div id="ghbdages" style="overflow:hidden;max-height:90px;height:auto;text-align:center;margin-top:10px"><div class="swiper-wrapper"><div class="swiper-slide"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" title="博客框架为Hexo_v6.0.0"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" title="主题版本Butterfly_v4.2.0"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" title="本站项目由Github托管"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a></div><div class="swiper-slide"><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></div></div></div><style>a.github-badge:hover:before {display:none}</style>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><script async src="https://unpkg.zhimg.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.js"></script><script defer src="https://unpkg.zhimg.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://unpkg.zhimg.com/hexo-butterfly-footer-beautify/lib/swiperbdage_init.min.js"></script><!-- hexo injector body_end end --></body></html>

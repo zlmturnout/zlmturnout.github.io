@@ -1,0 +1,350 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>EPICS 在win10 和 linux上的安装与测试 | Cythnia</title><meta name="keywords" content="linux,EPICS,Cmake"><meta name="author" content="VerTiCaL"><meta name="copyright" content="VerTiCaL"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="#  EPICS 简介  Experimental Physics and Industrial Control System（EPICS）是上世纪 90 年代初由美国洛斯阿拉莫斯国家实验室（LANL）和阿贡国家实验室（ANL）等联合开发的大型控制软件系统，具有分布式，开放，多平台，可扩展等特点，提供丰富的控制系统软件开发工具，可用于建立分布式的控制系统，并进行系统集成。EPICS 多用于粒子加速">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EPICS 在win10 和 linux上的安装与测试">
+<meta property="og:url" content="http://192.168.1.105/2022/05/07/EPICS%20%E5%9C%A8win10%20%E5%92%8C%20linux%E4%B8%8A%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E6%B5%8B%E8%AF%95/index.html">
+<meta property="og:site_name" content="Cythnia">
+<meta property="og:description" content="#  EPICS 简介  Experimental Physics and Industrial Control System（EPICS）是上世纪 90 年代初由美国洛斯阿拉莫斯国家实验室（LANL）和阿贡国家实验室（ANL）等联合开发的大型控制软件系统，具有分布式，开放，多平台，可扩展等特点，提供丰富的控制系统软件开发工具，可用于建立分布式的控制系统，并进行系统集成。EPICS 多用于粒子加速">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://192.168.1.105/cover/Galaxy03.jpeg">
+<meta property="article:published_time" content="2022-05-06T18:16:29.373Z">
+<meta property="article:modified_time" content="2022-05-09T03:38:11.414Z">
+<meta property="article:author" content="VerTiCaL">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="EPICS">
+<meta property="article:tag" content="Cmake">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://192.168.1.105/cover/Galaxy03.jpeg"><link rel="shortcut icon" href="/img/avatar.jpg"><link rel="canonical" href="http://192.168.1.105/2022/05/07/EPICS%20%E5%9C%A8win10%20%E5%92%8C%20linux%E4%B8%8A%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E6%B5%8B%E8%AF%95/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"DY0A960O7R","apiKey":"e2f82894b0944f9575ebca09d3135ea0","indexName":"blog","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":100},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'EPICS 在win10 和 linux上的安装与测试',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-05-09 11:38:11'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"  media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://unpkg.zhimg.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://unpkg.zhimg.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/cover/Galaxy02.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Cythnia</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">EPICS 在win10 和 linux上的安装与测试</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-06T18:16:29.373Z" title="发表于 2022-05-07 02:16:29">2022-05-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-05-09T03:38:11.414Z" title="更新于 2022-05-09 11:38:11">2022-05-09</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Article/">Article</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="EPICS 在win10 和 linux上的安装与测试"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="font-colorf85dcd-epics简介-font"><a class="markdownIt-Anchor" href="#font-colorf85dcd-epics简介-font">#</a> <font color=#f85dcd > EPICS 简介 </font></h1>
+<p>Experimental Physics and Industrial Control System（EPICS）是上世纪 90 年代初由美国洛斯阿拉莫斯国家实验室（LANL）和阿贡国家实验室（ANL）等联合开发的大型控制软件系统，具有分布式，开放，多平台，可扩展等特点，提供丰富的控制系统软件开发工具，可用于建立分布式的控制系统，并进行系统集成。EPICS 多用于粒子加速器、天文望远镜等大型实验系统中，目前已成为国际上同步辐射实验室所广泛采用的控制系统平台。<br>
+<a target="_blank" rel="noopener" href="https://epics.anl.gov/index.php">阿贡国家实验室 EPICS 官网</a><br>
+<a target="_blank" rel="noopener" href="https://epics-controls.org/"> EPICS 新主页</a></p>
+<h2 id="font-colorf85dcd-系统环境与安装包-font"><a class="markdownIt-Anchor" href="#font-colorf85dcd-系统环境与安装包-font">#</a> <font color=#f85dcd > 系统环境与安装包 </font></h2>
+<p>Win10 64 位 和 Win10 自带 Linux 子系统<br>
+ Epics base 7.04.1 或者 3.15.8（stable）<a target="_blank" rel="noopener" href="https://epics.anl.gov/download/base/index.php">安装包</a><br>
+ Strawberry Perl for windows <a target="_blank" rel="noopener" href="http://strawberryperl.com/">安装包</a></p>
+<h2 id="font-colorf85dcd-windows环境下安装-font"><a class="markdownIt-Anchor" href="#font-colorf85dcd-windows环境下安装-font">#</a> <font color=#f85dcd > Windows 环境下安装 </font></h2>
+<p><a target="_blank" rel="noopener" href="https://epics.anl.gov/base/win32.php">EPICS 官网的说明</a><br>
+可以通过 Strawberry Perl 或 VS community 配置所需的编译环境，本文通过 Strawberry Perl 自带的 MinGW 来进行 C/C++ 编译。</p>
+<h3 id="font-colorf85dcd-编译环境和路径设置-font"><a class="markdownIt-Anchor" href="#font-colorf85dcd-编译环境和路径设置-font">#</a> <font color=#f85dcd > 编译环境和路径设置 </font></h3>
+<table>
+<thead>
+<tr>
+<th>安装文件</th>
+<th>路径位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Strawberry Perl 安装包</td>
+<td>E:\Strawberry</td>
+</tr>
+<tr>
+<td>EPICS base 文件</td>
+<td>E:\EPICS\base-7.0.4.1</td>
+</tr>
+</tbody>
+</table>
+<p><font color=#00CACA > 1、进入<strong> E:\EPICS\base-7.0.4.1\base-R7.0.4.1\startup</strong> 下修改 windows.bat 脚本来统一设置编译的环境变量，需要修改的如下： </font></p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">set _auto=yes</span><br><span class="line">set _strawberry_perl_home=E:\Strawberry</span><br><span class="line">set _epics_host_arch=windows-x64-mingw</span><br><span class="line">set _epics_base=E:\EPICS\base-<span class="number">7.0</span>.<span class="number">4.1</span></span><br></pre></td></tr></table></figure>
+<p>同时把 设置 VS community 环境的两行代码注释掉<br>
+在前面加 rem</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set _visual_studio_home=C:\Program Files (x86)\Microsoft Visual Studio <span class="number">14.0</span></span><br><span class="line">call <span class="string">&quot;%_visual_studio_home%\VC\vcvarsall.bat&quot;</span> x64  </span><br></pre></td></tr></table></figure>
+<p><font color=#00CACA > 2、检查 Win10 的环境变量是否有下图选中的 ComSpec，如有删除之不然编译会报错。</font></p>
+<p><img src="https://img-blog.csdnimg.cn/20200921162305254.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1ZlclRpY2FsVmVyVGljYWw=,size_16,color_FFFFFF,t_70#pic_center" alt="系统变量cmd"></p>
+<p><font color=#00CACA > 3、Strawberry 路径添加 </font></p>
+<p>把 Strawberry perl 安装路径下 C 的 bin 文件路径加入到 windows 系统变量<br>
+ E:\Strawberry\c\bin</p>
+<p>临时添加路径</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">set</span> path=%path%;E:\Strawberry\c\bin  </span><br><span class="line"></span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line"><span class="comment">### &lt;font color=#f85dcd &gt; 编译Epics base &lt;/font&gt;</span></span><br><span class="line"></span><br><span class="line">Win+<span class="built_in">R</span>打开cmd窗口进入**E:\EPICS\base<span class="literal">-7</span>.<span class="number">0.4</span>.<span class="number">1</span>\base<span class="literal">-R7</span>.<span class="number">0.4</span>.<span class="number">1</span>\startup**运行修改后的windows.bat脚本，来设置编译环境变量，每次重新启动都需要重新运行这个脚本。退出到\base<span class="literal">-R7</span>.<span class="number">0.4</span>.<span class="number">1</span>路径下gmake，如果之前有编译过或者失败过用gmake clean install清理后在gmake编译，<span class="number">10</span><span class="literal">-30min</span>后完成。顺利编译好界面如下：</span><br><span class="line">![<span class="type">Epics</span>-<span class="type">gmake</span>](https://img<span class="literal">-blog</span>.csdnimg.cn/<span class="number">20200921164240525</span>.JPG<span class="comment">#pic_center)  </span></span><br><span class="line"></span><br><span class="line">同时在&lt;font color=<span class="comment">#f85dcd &gt;[EPICS编译文件的路径](#jump) &lt;/font&gt; :**E:\EPICS\base-7.0.4.1\base-R7.0.4.1\bin\windows-x64-mingw**下会出现一系列编译好的exe文件和perl脚本，说明编译成功了。</span></span><br><span class="line"></span><br><span class="line">&lt;font color=<span class="comment">#3296e3 &gt; &lt;span id=&quot;jump&quot;&gt; **EPICS编译文件的路径**&lt;/span&gt; &lt;/font&gt;</span></span><br><span class="line"></span><br><span class="line">| 路径名称           | 路径位置                                                  |</span><br><span class="line">| <span class="literal">------------------</span> | <span class="literal">---------------------------------------------------------</span> |</span><br><span class="line">| EPICS base编译文件 | E:\EPICS\base<span class="literal">-7</span>.<span class="number">0.4</span>.<span class="number">1</span>\base<span class="literal">-R7</span>.<span class="number">0.4</span>.<span class="number">1</span>\bin\windows<span class="literal">-x64-mingw</span> |  </span><br><span class="line"></span><br><span class="line"><span class="comment">### &lt;font color=#f85dcd &gt; 测试与辅助工具安装 &lt;/font&gt;  </span></span><br><span class="line"></span><br><span class="line">&lt;font color=<span class="comment">#00CACA &gt; 1、Windows 环境变量添加 &lt;/font&gt;  </span></span><br><span class="line"></span><br><span class="line">把&lt;font color=<span class="comment">#f85dcd &gt;[EPICS编译文件的路径](#jump)&lt;/font&gt; **E:\EPICS\base-7.0.4.1\base-R7.0.4.1\bin\windows-x64-mingw**加到系统变量里，这样就能直接调用路径下的执行文件和perl脚本  </span></span><br><span class="line"></span><br><span class="line">临时添加路径</span><br><span class="line"></span><br><span class="line">```perl</span><br><span class="line"><span class="built_in">set</span> path==%path%;E:\EPICS\base<span class="literal">-7</span>.<span class="number">0.4</span>.<span class="number">1</span>\base<span class="literal">-R7</span>.<span class="number">0.4</span>.<span class="number">1</span>\bin\windows<span class="literal">-x64-mingw</span></span><br></pre></td></tr></table></figure>
+<p><font color=#00CACA > 2、执行 makeBaseApp.pl 脚本测试 </font></p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">makeBaseApp.pl</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200921165154337.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1ZlclRpY2FsVmVyVGljYWw=,size_16,color_FFFFFF,t_70#pic_center" alt="Epics-makeBaseApp"></p>
+<p><font color=#00CACA > 3、IOC 创建 </font></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#建立test目录</span></span><br><span class="line">mkdir test</span><br><span class="line"><span class="built_in">cd</span> test</span><br><span class="line"><span class="comment"># 创建testApp的目录</span></span><br><span class="line">makeBaseApp.pl <span class="literal">-t</span> example T01</span><br><span class="line"><span class="comment"># 创建IOC boot目录，命名程序名T01</span></span><br><span class="line">makeBaseApp.pl <span class="literal">-i</span> <span class="literal">-t</span> example T01</span><br><span class="line"><span class="comment">#gmake编译，可能需要再运行一次windows.bat 脚本</span></span><br><span class="line">gmake</span><br></pre></td></tr></table></figure>
+<p><font color=#3296e3 ><span id="jump"> <strong>编译文件的路径</strong></span> </font></p>
+<table>
+<thead>
+<tr>
+<th>路径名称</th>
+<th>路径位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EPICS base 编译文件</td>
+<td>E:\EPICS\base-7.0.4.1\base-R7.0.4.1\bin\windows-x64-mingw</td>
+</tr>
+<tr>
+<td>测试用编译文件</td>
+<td>E:\EPICS\test\bin\windows-x64-mingw</td>
+</tr>
+</tbody>
+</table>
+<p>添加上面两个路径到系统环境变量中</p>
+<p>临时添加路径</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#添加编译好的test\bin\windows-x64-mingw\T01.exe到环境变量里</span></span><br><span class="line"><span class="built_in">set</span> path=%path%;E:\EPICS\test\bin\windows<span class="literal">-x64-mingw</span>\T01.exe</span><br><span class="line"><span class="comment">#外加之前编译的Epic相关和E:\Strawberry\c\bin路径</span></span><br><span class="line"><span class="built_in">set</span> path=%path%;E:\EPICS\test\bin\windows<span class="literal">-x64-mingw</span>;</span><br><span class="line">E:\EPICS\base<span class="literal">-7</span>.<span class="number">0.4</span>.<span class="number">1</span>\base<span class="literal">-R7</span>.<span class="number">0.4</span>.<span class="number">1</span>\bin\windows<span class="literal">-x64-mingw</span>;E:\Strawberry\c\bin</span><br></pre></td></tr></table></figure>
+<p>检查下环境变量里是否包含这两项<br>
+<img src="https://img-blog.csdnimg.cn/5b656a579c1c4c7bbc304a015076d4c7.jpg?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAVmVyVGljYWxWZXJUaWNhbA==,size_12,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
+<p><font color=#00CACA > 4、IOC 测试 </font></p>
+<p><font color=#3296e3 ><span id="jump"> <strong>测试 ioc 启动文件的路径</strong></span> </font></p>
+<table>
+<thead>
+<tr>
+<th>路径名称</th>
+<th>路径位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>测试的 ioc 启动文件</td>
+<td>E:\EPICS\test\iocBoot\iocT01</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入前面test目录下的\icoBoot\iocT01\运行T01 st.cmd脚本</span></span><br><span class="line">T01 st.cmd</span><br><span class="line"><span class="comment">#dbl 查看已有的PV变量 </span></span><br><span class="line">dbl</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200921174257375.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1ZlclRpY2FsVmVyVGljYWw=,size_16,color_FFFFFF,t_70#pic_center" alt="Test_T01"></p>
+<h1 id="font-colorf85dcd-linux子系统环境下安装-font"><a class="markdownIt-Anchor" href="#font-colorf85dcd-linux子系统环境下安装-font">#</a> <font color=#f85dcd > Linux 子系统环境下安装 </font></h1>
+<p><a target="_blank" rel="noopener" href="https://epics-controls.org/resources-and-support/base/epics-7/">Epics7.0 官网说明</a><br>
+<a target="_blank" rel="noopener" href="https://epics.anl.gov/base/R3-15/index.php"> Epics3.15 官网说明</a><br>
+<a target="_blank" rel="noopener" href="https://epics-controls.org/resources-and-support/documents/">官方文档界面</a><br>
+ Linux 系统下简单多了，装了 git，直接 git clone 就好</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --recursive -b 7.0 https://git.launchpad.net/epics-base base-7.0</span><br><span class="line"><span class="built_in">cd</span> base-7.0</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+<p>或者解压<a target="_blank" rel="noopener" href="https://epics.anl.gov/download/base/index.php"> base-7.0.4.1.tar.gz</a>, 进入目录 make 也行<br>
+然后把安装路径 ${HOME}/EPICS/epics-base 添加到 bashrc 文件里</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> EPICS_BASE=<span class="variable">$&#123;HOME&#125;</span>/EPICS/epics-base</span><br><span class="line"><span class="built_in">export</span> EPICS_HOST_ARCH=$(<span class="variable">$&#123;EPICS_BASE&#125;</span>/startup/EpicsHostArch)</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$&#123;EPICS_BASE&#125;</span>/bin/<span class="variable">$&#123;EPICS_HOST_ARCH&#125;</span>:<span class="variable">$&#123;PATH&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="font-colorf85dcd-测试-font"><a class="markdownIt-Anchor" href="#font-colorf85dcd-测试-font">#</a> <font color=#f85dcd > 测试 </font></h2>
+<p>输入 softIoc，出现 epics&gt;, 说明安装成功，exit 退出<br>
+ IOC 实例 test 和常用命令 caget/caput/camonitor 参考链接</p>
+<h2 id="font-colorf85dcd-参考链接-font"><a class="markdownIt-Anchor" href="#font-colorf85dcd-参考链接-font">#</a> <font color=#f85dcd > 参考链接 </font></h2>
+<p>1、<a target="_blank" rel="noopener" href="https://blog.csdn.net/pisces87/article/details/104188946">在 windows x64 系统安装 EPICS</a><br>
+2、<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44421612/article/details/95213407">Ubuntu 下安装 EPICS 及建立 IOC 实例</a><br>
+ 3、<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34885184/article/details/88088502">CentOS7 安装 EPICS Base 与建立 IOC 实例</a><br>
+ 4、<a target="_blank" rel="noopener" href="https://blog.csdn.net/u013715256/article/details/108487541">EPICS Linux/Unbuntu 的安装说明（入门级）</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://192.168.1.105">VerTiCaL</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://192.168.1.105/2022/05/07/EPICS%20%E5%9C%A8win10%20%E5%92%8C%20linux%E4%B8%8A%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E6%B5%8B%E8%AF%95/">http://192.168.1.105/2022/05/07/EPICS%20%E5%9C%A8win10%20%E5%92%8C%20linux%E4%B8%8A%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E6%B5%8B%E8%AF%95/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://192.168.1.105" target="_blank">Cythnia</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/linux/">linux</a><a class="post-meta__tags" href="/tags/EPICS/">EPICS</a><a class="post-meta__tags" href="/tags/Cmake/">Cmake</a></div><div class="post_share"><div class="social-share" data-image="/cover/Galaxy03.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/05/07/VScode+cmake%E6%9E%84%E5%BB%BAEPICS%20C++%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83/"><img class="next-cover" src="/cover/Galaxy04.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">VScode+cmake构建EPICS C++编译环境</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/05/07/VScode+cmake%E6%9E%84%E5%BB%BAEPICS%20C++%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83/" title="VScode+cmake构建EPICS C++编译环境"><img class="cover" src="/cover/Galaxy04.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-07</div><div class="title">VScode+cmake构建EPICS C++编译环境</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">VerTiCaL</div><div class="author-info__description">Life is about choice, Live for a purpose</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zlmturnout"><i class="fab fa-github"></i><span>Github page</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zlmturnout" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://www.nasa.gov/" target="_blank" title="NASA"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://music.163.com/" target="_blank" title="cloud-music"><i class="fas fa-cloud-music"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Personal Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#font-colorf85dcd-epics%E7%AE%80%E4%BB%8B-font"><span class="toc-number">1.</span> <span class="toc-text">  EPICS 简介 </span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#font-colorf85dcd-%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83%E4%B8%8E%E5%AE%89%E8%A3%85%E5%8C%85-font"><span class="toc-number">1.1.</span> <span class="toc-text">  系统环境与安装包 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#font-colorf85dcd-windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85-font"><span class="toc-number">1.2.</span> <span class="toc-text">  Windows 环境下安装 </span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#font-colorf85dcd-%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83%E5%92%8C%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE-font"><span class="toc-number">1.2.1.</span> <span class="toc-text">  编译环境和路径设置 </span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#font-colorf85dcd-linux%E5%AD%90%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85-font"><span class="toc-number">2.</span> <span class="toc-text">  Linux 子系统环境下安装 </span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#font-colorf85dcd-%E6%B5%8B%E8%AF%95-font"><span class="toc-number">2.1.</span> <span class="toc-text">  测试 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#font-colorf85dcd-%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5-font"><span class="toc-number">2.2.</span> <span class="toc-text">  参考链接 </span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/05/07/EPICS%20%E5%9C%A8win10%20%E5%92%8C%20linux%E4%B8%8A%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E6%B5%8B%E8%AF%95/" title="EPICS 在win10 和 linux上的安装与测试"><img src="/cover/Galaxy03.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="EPICS 在win10 和 linux上的安装与测试"/></a><div class="content"><a class="title" href="/2022/05/07/EPICS%20%E5%9C%A8win10%20%E5%92%8C%20linux%E4%B8%8A%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E6%B5%8B%E8%AF%95/" title="EPICS 在win10 和 linux上的安装与测试">EPICS 在win10 和 linux上的安装与测试</a><time datetime="2022-05-06T18:16:29.373Z" title="发表于 2022-05-07 02:16:29">2022-05-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/07/VScode+cmake%E6%9E%84%E5%BB%BAEPICS%20C++%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83/" title="VScode+cmake构建EPICS C++编译环境"><img src="/cover/Galaxy04.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VScode+cmake构建EPICS C++编译环境"/></a><div class="content"><a class="title" href="/2022/05/07/VScode+cmake%E6%9E%84%E5%BB%BAEPICS%20C++%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83/" title="VScode+cmake构建EPICS C++编译环境">VScode+cmake构建EPICS C++编译环境</a><time datetime="2022-05-06T17:30:14.063Z" title="发表于 2022-05-07 01:30:14">2022-05-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/17/hello-world/" title="Hello World"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2022/02/17/hello-world/" title="Hello World">Hello World</a><time datetime="2022-02-17T13:04:40.559Z" title="发表于 2022-02-17 21:04:40">2022-02-17</time></div></div></div></div></div></div></main><footer id="footer" style="background: linear-gradient(50deg, #ADFEDC 10%, #FF95CA 80%)"><div id="footer-wrap"><div class="copyright">&copy;2022 By VerTiCaL</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">To show your true colors, you have to come out of the shell</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script><div class="js-pjax"></div><div class="aplayer no-destroy" data-id="2661667887" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="false" muted></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<div id="workboard"></div><div id="ghbdages" style="overflow:hidden;max-height:90px;height:auto;text-align:center;margin-top:10px"><div class="swiper-wrapper"><div class="swiper-slide"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" title="博客框架为Hexo_v6.0.0"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" title="主题版本Butterfly_v4.2.0"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" title="本站项目由Github托管"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a></div><div class="swiper-slide"><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></div></div></div><style>a.github-badge:hover:before {display:none}</style>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><script async src="https://unpkg.zhimg.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.js"></script><script defer src="https://unpkg.zhimg.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://unpkg.zhimg.com/hexo-butterfly-footer-beautify/lib/swiperbdage_init.min.js"></script><!-- hexo injector body_end end --></body></html>
