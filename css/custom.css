@@ -72,8 +72,38 @@ h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {
   -webkit-animation: ccc 3.2s linear infinite ;
   animation: ccc 3.2s linear infinite ;
 }
+
 /* 页面设置icon转动速度调整 */
 #rightside_config i.fas.fa-cog.fa-spin {
   -webkit-animation: fa-spin 5s linear infinite ;
           animation: fa-spin 5s linear infinite ;
+}
+
+/* 首页文章卡片 */
+#recent-posts > .recent-post-item{
+  background:rgba(87, 229, 234, 0.4);
+}
+/* 首页侧栏卡片 */
+.card-widget{
+background:rgba(233, 166, 159, 0.4)!important;
+}
+/* 文章页面正文背景 */
+div#post{
+background: rgba(77, 152, 239, 0.45);
+}
+/* 分页页面 */
+div#page{
+background: #50dbf073;
+}
+/* 归档页面 */
+div#archive{
+background: rgba(221, 87, 221, 0.45);
+}
+/* 标签页面 */
+div#tag{
+background: rgba(233, 142, 57, 0.45);
+}
+/* 分类页面 */
+div#category{
+background: rgba(106, 71, 245, 0.4);
 }
