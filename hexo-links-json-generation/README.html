@@ -1,0 +1,99 @@
+<h1 id="hexo-links-json-generation-hexo友链json生成"><a class="markdownIt-Anchor" href="#hexo-links-json-generation-hexo友链json生成">#</a> hexo-links-json-generation / Hexo 友链 Json 生成</h1>
+<h2 id="what-is-this-这是甚么"><a class="markdownIt-Anchor" href="#what-is-this-这是甚么">#</a> What is this? 这是甚么？</h2>
+<p>This is a json generator for hexo links page, which transforms YML to Json.</p>
+<p>这是一个供 HEXO 使用的 Json 生成器，用于友链页面。其将 YML 格式文件转换为 Json 格式文件。</p>
+<p>Attention please! This page is only a suggestion, it should be subject to my post <a href="https://blog.uiharu.top/archives/generate-links-json-via-github-action.html">Generate links json via github action</a> in the blog.</p>
+<p>请注意，本页面文档仅供参考之用，最新文档以我博客的<a href="https://blog.uiharu.top/archives/generate-links-json-via-github-action.html">没人比我更懂方便 —— 透过 Github Action 优雅生成友链数据</a>为准。</p>
+<h2 id="如何食用"><a class="markdownIt-Anchor" href="#如何食用">#</a> 如何食用</h2>
+<h3 id="申请-token"><a class="markdownIt-Anchor" href="#申请-token">#</a> 申请 Token</h3>
+<p>若果你是<strong>第一次</strong>使用 Github Action，你需要参照本步骤先行申请  <code>Token</code> ，用於启动 Action 及 Commit Log。若果你已拥有  <code>Token</code> ，可跳过本步骤。</p>
+<ol>
+<li>
+<p>鼠标置於右上角头像处，进入个人设置  <code>Settings</code></p>
+</li>
+<li>
+<p>於  <code>Settings</code>  页面进入  <code>Developer settings</code>  --&gt;  <code>Personal access tokens</code> ，並新增一个  <code>Token</code></p>
+</li>
+<li>
+<p>请将新增的  <code>Token</code>  命名为  <code>GITHUB_TOKEN</code> ，同时勾选  <code>repo</code>  , <code>admin:repo_hook</code>  , <code>workflow</code>  等选项</p>
+</li>
+</ol>
+<p><strong>请务必确保</strong>新增的  <code>Token</code>  命名为  <code>GITHUB_TOKEN</code> 。</p>
+<h3 id="secrets-配置及运行"><a class="markdownIt-Anchor" href="#secrets-配置及运行">#</a> Secrets 配置及运行</h3>
+<p>考虑到各人的 Hexo 並非均部署在具有 FTP 服务的 VPS 中，下列步骤将区分有无 FTP 两种情况，以供参考。</p>
+<h4 id="有-ftp-服务"><a class="markdownIt-Anchor" href="#有-ftp-服务">#</a> 有 FTP 服务</h4>
+<p>请先 Fork 项目仓库 <a href="https://github.com/Kitcham/hexo-links-json-generation">Kitcham/hexo-links-json-generation</a> 到自己的 Github Repo 中。然后於 Repo 的  <code>Settings</code>  --&gt;  <code>Secrets</code>  中配置好以下  <code>Secrets</code>  ，请务必注意名称的一致。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><code>Secrets</code>  名称</th>
+<th style="text-align:center">变量值描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>USER_EMAIL</code></td>
+<td style="text-align:center">你的 Email 地址（用於 Commit 信息的提交）</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>USER_NAME</code></td>
+<td style="text-align:center">你的 Github 用户名（用於 Commit 信息的提交）</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>FTP_ACCOUNT</code></td>
+<td style="text-align:center">你的服务器 FTP 用户名</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>FTP_ADDRESS</code></td>
+<td style="text-align:center">你的服务器 FTP 地址（不指定端口时，默认为 21 端口）</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>FTP_PASSWORD</code></td>
+<td style="text-align:center">你的服务器 FTP 密码</td>
+</tr>
+</tbody>
+</table>
+<p><strong>请务必确保</strong>设置的  <code>Secrets</code>  名称与上表一致。</p>
+<p>具体的 Workflow 情况请转到 Repo 的  <code>Action</code>  界面瞭解，你亦可於此处查看 Workflow 的工作情况。待 Workflow 成功运行后，你可於 Repo 的  <code>/links/links.json</code>  中查看生成结果。此时，你即可以於你的 VPS 中发现  <code>links.json</code>  文件，此即友链  <code>YML</code>  信息文件的转换结果。</p>
+<p><strong>注意：</strong> 该情况下具有两个 Workflow 的  <code>YML</code>  配置文件。其将先执行  <code>build.yml</code> ，待其完成后， <code>ftp.yml</code>  随之执行。</p>
+<p>本项目的 FTP 服务采用 <a href="https://github.com/marketplace/actions/ftp-deploy">GitHub-Action/FTP-Deploy</a>，更多高级配置可参照其项目文档。</p>
+<h4 id="无-ftp-服务"><a class="markdownIt-Anchor" href="#无-ftp-服务">#</a> 无 FTP 服务</h4>
+<p>请先 Fork 项目仓库 <a href="https://github.com/Kitcham/hexo-links-json-generation">Kitcham/hexo-links-json-generation</a> 到自己的 Github Repo 中。然后於 Repo 的  <code>Settings</code>  --&gt;  <code>Secrets</code>  中配置好以下  <code>Secrets</code>  ，请务必注意名称的一致。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><code>Secrets</code>  名称</th>
+<th style="text-align:center">变量值描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>USER_EMAIL</code></td>
+<td style="text-align:center">你的 Email 地址（用於 Commit 信息的提交）</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>USER_NAME</code></td>
+<td style="text-align:center">你的 Github 用户名（用於 Commit 信息的提交）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>请务必确保</strong>设置的  <code>Secrets</code>  名称与上表一致。</p>
+<p>具体的 Workflow 情况请转到 Repo 的  <code>Action</code>  界面瞭解，你亦可於此处查看 Workflow 的工作情况。待 Workflow 成功运行后，你可於 Repo 的  <code>/links/links.json</code>  中查看生成结果。此时，你即可以於你的 VPS 中发现  <code>links.json</code>  文件，此即友链  <code>YML</code>  信息文件的转换结果。</p>
+<p><strong>注意：</strong> 该情况下仅有一个 Workflow 的  <code>YML</code>  配置文件， <code>build.yml</code>  将会执行。</p>
+<p>如你需要在本情况下访问生成的  <code>links.json</code> ，你<strong>可能</strong>需要（三者其一）：</p>
+<ul>
+<li>在 Repo 中进入  <code>/links/links.json</code> ，点击文件预览界面的  <code>RAW</code>  选项，获取其於 Github 上的 URL 以便引用访问（不推荐）</li>
+<li>在 Repo 的  <code>Settings</code>  中开启  <code>Github Pages</code>  服务，然后即可透过  <code>http(s)://YOUR_PAGE_DOMAIN/links/links.json</code>  访问生成的  <code>links.json</code> （推荐）</li>
+<li>你会的其他黑科技 / 黑魔法</li>
+</ul>
+<h3 id="友链信息的更新"><a class="markdownIt-Anchor" href="#友链信息的更新">#</a> 友链信息的更新</h3>
+<p>你惟须依照以下格式进行填写相关信息，每当你进行一次  <code>PUSH</code>  或  <code>Pull requests</code>  操作后，即可触发 Github Action 完成转换。</p>
+<ul>
+<li><code>src\links.yml</code></li>
+</ul>
+<figure class="highlight yaml"><figcaption data-lang="YAML"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token key atrule">"站点名称"</span><span class="token punctuation">:</span> <span class="token comment"># 请置于双引号之中</span></pre></td></tr><tr><td data-num="2"></td><td><pre>  <span class="token key atrule">url</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//example.com <span class="token comment"># 网站的 URL，请注意冒号后的空格</span></pre></td></tr><tr><td data-num="3"></td><td><pre>  <span class="token key atrule">img</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//example.com/example.png <span class="token comment"># 网站 Logo 的 URL，请注意冒号后的空格</span></pre></td></tr><tr><td data-num="4"></td><td><pre>  <span class="token key atrule">text</span><span class="token punctuation">:</span> <span class="token string">"Hello, World"</span> <span class="token comment"># 网站的 Slogan，请置于双引号之中，请注意冒号后的空格</span></pre></td></tr></table></figure><p>如生成过程出现问题，请查看 Action 日志瞭解详情以排查问题。如问题仍未解决，欢迎提交 Issue 交流。</p>
+<h3 id="前端怎么用好它呢"><a class="markdownIt-Anchor" href="#前端怎么用好它呢">#</a> 前端怎么用好它呢</h3>
+<p>本项目仅用於  <code>YML</code>  到  <code>JSON</code>  的转换工作，並非前端友链页面的直接实现。</p>
+<p>若果希望查看效果，可到本站的友链页面 <a href="https://blog.uiharu.top/links">Kitcham 的友链页面</a> 预览效果。</p>
+<h2 id="结语"><a class="markdownIt-Anchor" href="#结语">#</a> 结语</h2>
+<p>该方案只是经我个人思考后，认为普适性较高的方案。如果你有更优雅的方案，欢迎交流～</p>
