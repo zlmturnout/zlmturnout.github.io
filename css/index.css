@@ -858,6 +858,13 @@ a {
 a:hover {
   color: #49b1f5;
 }
+#site-title,
+#site-subtitle,
+#site-name,
+#aside-content .author-info__name,
+#aside-content .author-info__description {
+  font-family: -apple-system;
+}
 .is-center {
   text-align: center;
 }
@@ -2714,7 +2721,7 @@ h1.page-title + .tag-cloud-list {
   position: absolute;
   top: calc(50% - 7px);
   color: #f47466;
-  content: '\f0c1';
+  content: '\f863';
   line-height: 1;
   transition: all 0.2s ease-out;
 }
@@ -3144,6 +3151,86 @@ h1.page-title + .tag-cloud-list {
 #sidebar #sidebar-menus .menus_items .menus_item_child {
   margin: 0;
   list-style: none;
+}
+.Cuteen_DarkSky,
+.Cuteen_DarkSky:before {
+  content: '';
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 88888888;
+}
+.Cuteen_DarkSky {
+  background: linear-gradient(#feb8b0, #fef9db);
+}
+.Cuteen_DarkSky:before {
+  transition: 2s ease all;
+  opacity: 0;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  background: linear-gradient(#4c3f6d, #6c62bb, #93b1ed);
+}
+.DarkMode .Cuteen_DarkSky:before {
+  opacity: 1;
+  -ms-filter: none;
+  filter: none;
+}
+.Cuteen_DarkPlanet {
+  z-index: 99999999;
+  position: fixed;
+  left: -50%;
+  top: -50%;
+  width: 200%;
+  height: 200%;
+  -webkit-animation: CuteenPlanetMove 2s cubic-bezier(0.7, 0, 0, 1);
+  -webkit-animation: CuteenPlanetMove 2s cubic-bezier(0.7, 0, 0, 1);
+  animation: CuteenPlanetMove 2s cubic-bezier(0.7, 0, 0, 1);
+  transform-origin: center bottom;
+}
+@-webkit-keyframes CuteenPlanetMove {
+  0% {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.Cuteen_DarkPlanet:after {
+  position: absolute;
+  left: 35%;
+  top: 40%;
+  width: 9.375rem;
+  height: 9.375rem;
+  border-radius: 50%;
+  content: '';
+  background: linear-gradient(#fefefe, #fffbe8);
+}
+.search span {
+  display: none;
+}
+.menus_item a {
+  text-decoration: none !important;
+}
+.icon-V {
+  padding: 5px;
+}
+@-webkit-keyframes CuteenPlanetMove {
+  0% {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes CuteenPlanetMove {
+  0% {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 #vcomment {
   font-size: 1.1em;
@@ -4387,9 +4474,9 @@ blockquote.pullquote.right {
   background: transparent!important;
   }
 /*top-img黑色透明玻璃效果移除，不建议加，除非你执着于完全一图流或者背景图对比色明显 */
-#page-header.post-bg:before {
+/*#page-header.post-bg:before {
   background-color: transparent!important;
-}
+}*/
 /*夜间模式伪类遮罩层透明*/
 [data-theme="dark"]
   #footer::before{
@@ -4399,6 +4486,36 @@ blockquote.pullquote.right {
   #page-header::before{
     background: transparent!important;
     }
+
+/* 首页文章卡片 */
+#recent-posts > .recent-post-item{
+    background:rgba(87, 229, 234, 0.4);
+}
+/* 首页侧栏卡片 */
+.card-widget{
+  background:rgba(233, 166, 159, 0.4)!important;
+}
+/* 文章页面正文背景 */
+div#post{
+  background: rgba(77, 152, 239, 0.45);
+}
+/* 分页页面 */
+div#page{
+  background: #50dbf073;
+}
+/* 归档页面 */
+div#archive{
+  background: rgba(221, 87, 221, 0.45);
+}
+/* 标签页面 */
+div#tag{
+  background: rgba(233, 142, 57, 0.45);
+}
+/* 分类页面 */
+div#category{
+  background: rgba(106, 71, 245, 0.4);
+}
+
 
 .search-dialog {
   position: fixed;

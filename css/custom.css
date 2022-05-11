@@ -89,7 +89,7 @@ background:rgba(233, 166, 159, 0.4)!important;
 }
 /* 文章页面正文背景 */
 div#post{
-background: rgba(66, 149, 245, 0.45);
+background: rgba(102, 200, 232, 0.7);
 }
 /* 分页页面 */
 div#page{
@@ -119,22 +119,22 @@ background: rgba(107, 223, 239, 0.5)!important;
 /* 夜间模式下的阅读模式 */
 [data-theme="dark"]
   .read-mode #aside-content .card-widget{
-        background: rgba(59, 59, 59, 0.3)!important;
+        background: rgb(204, 124, 124)!important;
         color: #ffffff;
       }
 [data-theme="dark"]  
   .read-mode div#post{
-      background: rgba(0, 0, 0, 0.606)!important;
+      background: rgba(164, 128, 128, 0.606)!important;
       color: #ece6e67e;
       }
 /* 夜间模式 */
 [data-theme="dark"]
   #aside-content .card-widget{
-      background: rgba(0, 0, 0, 0.5)!important;
+      background: rgba(0, 0, 0, 0.945)!important;
     }
 [data-theme="dark"]
   div#post{
-    background: rgba(0, 0, 0, 0.5)!important;
+    background: rgba(255, 255, 255, 0.5)!important;
     }
 /* for electric clock */
 #aside-content.aside-content > .sticky_layout > .card-widget.card-clock > .card-glass > .card-background {
