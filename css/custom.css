@@ -65,7 +65,7 @@ h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {
   margin-top: 0.0rem;
 }
 #content-inner.layout h1:hover, #content-inner.layout h2:hover, #content-inner.layout h3:hover, #content-inner.layout h4:hover, #content-inner.layout h5:hover, #content-inner.layout h6:hover {
-  color: #49b1f5 ;
+  color: #e35fdf ;
 }
 #content-inner.layout h1:hover::before, #content-inner.layout h2:hover::before, #content-inner.layout h3:hover::before, #content-inner.layout h4:hover::before, #content-inner.layout h5:hover::before, #content-inner.layout h6:hover::before {
   color: #49b1f5 ;
@@ -89,7 +89,7 @@ background:rgba(233, 166, 159, 0.4)!important;
 }
 /* 文章页面正文背景 */
 div#post{
-background: rgba(77, 152, 239, 0.45);
+background: rgba(66, 149, 245, 0.45);
 }
 /* 分页页面 */
 div#page{
@@ -106,4 +106,38 @@ background: rgba(233, 142, 57, 0.45);
 /* 分类页面 */
 div#category{
 background: rgba(106, 71, 245, 0.4);
+}
+/* 夜间和阅读模式下背景设置 */
+/* 阅读模式 */
+.read-mode #aside-content .card-widget{
+  background: rgba(2, 51, 80, 0.5)!important;
+}
+.read-mode div#post{
+background: rgba(107, 223, 239, 0.5)!important;
+}
+
+/* 夜间模式下的阅读模式 */
+[data-theme="dark"]
+  .read-mode #aside-content .card-widget{
+        background: rgba(59, 59, 59, 0.3)!important;
+        color: #ffffff;
+      }
+[data-theme="dark"]  
+  .read-mode div#post{
+      background: rgba(0, 0, 0, 0.606)!important;
+      color: #ece6e67e;
+      }
+/* 夜间模式 */
+[data-theme="dark"]
+  #aside-content .card-widget{
+      background: rgba(0, 0, 0, 0.5)!important;
+    }
+[data-theme="dark"]
+  div#post{
+    background: rgba(0, 0, 0, 0.5)!important;
+    }
+/* for electric clock */
+#aside-content.aside-content > .sticky_layout > .card-widget.card-clock > .card-glass > .card-background {
+  background-color: unset ;
+  box-shadow: unset ;
 }
