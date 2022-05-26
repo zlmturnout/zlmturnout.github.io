@@ -28,6 +28,9 @@ h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {
       transform: rotate(-1turn)
   }
 }
+h1.post-title {
+  font-family: 'YanYeZhiTing';
+}
 #content-inner.layout h1::before {
   color: #ef50a8 ;
   margin-left: -1.55rem;
@@ -81,15 +84,15 @@ h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {
 
 /* 首页文章卡片 */
 #recent-posts > .recent-post-item{
-  background:rgba(109, 226, 231, 0.4);
+  background:rgba(144, 237, 236, 0.4);
 }
 /* 首页侧栏卡片 */
 .card-widget{
-background:rgba(233, 166, 159, 0.4)!important;
+background:rgba(230, 240, 240, 0.4)!important;
 }
 /* 文章页面正文背景 */
 div#post{
-background: rgba(180, 221, 235, 0.7);
+background: rgba(226, 236, 241, 0.8);
 }
 /* 分页页面 */
 div#page{
@@ -113,7 +116,7 @@ background: rgba(106, 71, 245, 0.4);
   background: rgba(2, 51, 80, 0.5)!important;
 }
 .read-mode div#post{
-background: rgba(161, 168, 166, 0.5)!important;
+background: rgba(156, 196, 235, 0.5)!important;
 }
 
 /* 夜间模式下的阅读模式 */
@@ -130,7 +133,7 @@ background: rgba(161, 168, 166, 0.5)!important;
 /* 夜间模式 */
 [data-theme="dark"]
   #aside-content .card-widget{
-      background: rgba(0, 0, 0, 0.945)!important;
+      background: rgba(66, 65, 65, 0.945)!important;
     }
 [data-theme="dark"]
   div#post{
