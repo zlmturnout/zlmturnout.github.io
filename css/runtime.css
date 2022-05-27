@@ -1,0 +1,63 @@
+
+/* for hexo-butterfly-footer-beautify*/
+/*# 页脚计时器：[Native JS Timer](https://akilar.top/posts/b941af/)
+# 页脚徽标：[Add Github Badge](https://akilar.top/posts/e87ad7f8/)*/
+/*电子钟字体*/
+@font-face {
+  font-family: 'WOWFont';
+  src: url("/fonts/WOWFont.ttf");
+  font-display: swap;
+}
+div#runtime {
+  width: 300px;
+  margin: auto;
+  color: #ee6c3d;
+  padding-inline: 5px;
+  border-radius: 10px;
+  background-color: rgba(60, 60, 61, 0.3);
+  font-family: 'WOWFont';
+}
+[data-theme="dark"] div#runtime {
+  color: #28b4c8;
+  box-shadow: 0 0 5px rgba(28,69,218,0.71);
+  -webkit-animation: flashlight 1s linear infinite alternate;
+          animation: flashlight 1s linear infinite alternate;
+}
+/*悬停显示徽标提示语*/
+a.github-badge:hover:before {
+  position: fixed;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 10%;
+  border-radius: 10px;
+  text-align: center;
+  z-index: 100;
+  content: attr(data-title);
+  font-size: 20px;
+  color: #fff;
+  padding: 10px;
+  background-color: var(--text-bg-hover);
+}
+[data-theme=dark] a.github-badge:hover:before {
+  background-color: rgba(18,18,18,0.8);
+}
+@-webkit-keyframes flashlight {
+  from {
+    box-shadow: 0 0 5px #1478d2;
+  }
+  to {
+    box-shadow: 0 0 2px #1478d2;
+  }
+}
+@keyframes flashlight {
+  from {
+    box-shadow: 0 0 5px #1478d2;
+  }
+  to {
+    box-shadow: 0 0 2px #1478d2;
+  }
+}

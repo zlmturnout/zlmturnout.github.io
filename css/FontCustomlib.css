@@ -1,0 +1,142 @@
+/*字体自定义*/
+/*https://www.diyiziti.com/List/all/2*/
+@font-face {
+  font-family: 'FangZhenXinKai';
+  src: url("/fonts/FangZhenXinKai.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: 'NewRome';
+  src: url("/fonts/NewRome.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Frutiger';
+  src: url("/fonts/Frutiger.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Google';
+  src: url("/fonts/Google.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: 'helvetica';
+  src: url("/fonts/helvetica.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: 'IOS7';
+  src: url("/fonts/IOS7.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Monaco';
+  src: url("/fonts/Monaco.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: 'HuaWenKaiTi';
+  src: url("/fonts/HuaWenKaiTi.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: 'HuaWenXinKai';
+  src: url("/fonts/HuaWenXinKai.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Signature';
+  src: url("/fonts/Signature.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: 'HuangTingJian';
+  src: url("/fonts/HuangTingJian.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: 'LuXun';
+  src: url("/fonts/LuXun.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: 'MaoBiTCN';
+  src: url("/fonts/MaoBiTCN.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: 'MaoFont';
+  src: url("/fonts/MaoFont.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: 'LeViReBrushed';
+  src: url("/fonts/LeViReBrushed.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SuDongPo';
+  src: url("/fonts/SuDongPo.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: 'WangXiZhi';
+  src: url("/fonts/WangXiZhi.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: 'YanZhenQing';
+  src: url("/fonts/YanZhenQing.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: 'YanZhenQingFont';
+  src: url("/fonts/YanZhenQingFont.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JiaGuWen';
+  src: url("/fonts/JiaGuWen.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: 'QingYunGuFeng';
+  src: url("/fonts/QingYunGuFeng.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: 'QinyunXiaoZhuan';
+  src: url("/fonts/QinyunXiaoZhuan.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: 'XinZhuanTi';
+  src: url("/fonts/HanYiZhuanShu.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: 'XinZhuanTi';
+  src: url("/fonts/HanYiZhuanShu.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: 'WOWFont';
+  src: url("/fonts/WOWFont.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Regular';
+  src: url("/fonts/Regular.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: 'YanYeZhiTing';
+  src: url("/fonts/YanYeZhiTing.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Fenbi';
+  src: url("/fonts/Fenbi.ttf");
+  font-display: swap;
+}
